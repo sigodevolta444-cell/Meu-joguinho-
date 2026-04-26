@@ -1,45 +1,150 @@
+/* Importando uma fonte moderna e limpa */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+:root {
+    --bg-color: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --accent-color: #38bdf8;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    
+    /* Cores dos botões */
+    --color-sim: #22c55e;
+    --color-prov-sim: #86efac;
+    --color-nao-sei: #64748b;
+    --color-prov-nao: #fda4af;
+    --color-nao: #ef4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-  font-family: Arial;
-  background: #111;
-  color: white;
-  text-align: center;
-  margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: radial-gradient(circle at top left, #1e293b, #0f172a);
+    color: var(--text-primary);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .container {
-  margin-top: 50px;
-  padding: 20px;
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem;
+    border-radius: 24px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.8s ease-out;
 }
 
 h1 {
-  font-size: 32px;
+    font-weight: 800;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
 }
 
 #pergunta {
-  font-size: 24px;
-  margin: 30px 0;
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin: 2rem 0;
+    min-height: 80px;
+    color: var(--text-primary);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .botoes {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 button {
-  width: 90%;
-  max-width: 400px;
-  margin: 8px;
-  padding: 15px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  background: #00c3ff;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
+    cursor: pointer;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 button:hover {
-  background: #0099cc;
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Estilização individual baseada no valor do onclick (Truque de CSS!) */
+
+/* Sim */
+button[onclick*="responder(2)"] {
+    background: var(--color-sim);
+    order: 1;
+}
+
+/* Provavelmente Sim */
+button[onclick*="responder(1)"] {
+    background: rgba(34, 197, 94, 0.2);
+    color: var(--color-prov-sim);
+    border-color: var(--color-prov-sim);
+    order: 2;
+}
+
+/* Não Sei */
+button[onclick*="responder(0)"] {
+    background: var(--color-nao-sei);
+    order: 3;
+}
+
+/* Provavelmente Não */
+button[onclick*="responder(-1)"] {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--color-prov-nao);
+    border-color: var(--color-prov-nao);
+    order: 4;
+}
+
+/* Não */
+button[onclick*="responder(-2)"] {
+    background: var(--color-nao);
+    order: 5;
+}
+
+/* Animação suave para quando a pergunta mudar */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem;
+    }
+    h1 { font-size: 1.5rem; }
+    #pergunta { font-size: 1.1rem; }
 }
