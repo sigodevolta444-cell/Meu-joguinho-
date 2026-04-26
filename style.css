@@ -3,15 +3,13 @@
 
 :root {
     --bg-color: #0f172a;
-    --card-bg: rgba(30, 41, 59, 0.7);
-    --accent-color: #38bdf8;
+    --card-bg: rgba(30, 41, 59, 0.75);
     --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
     
     /* Cores dos botões */
     --color-sim: #22c55e;
     --color-prov-sim: #86efac;
-    --color-nao-sei: #64748b;
+    --color-nao-sei: #cbd5e1;
     --color-prov-nao: #fda4af;
     --color-nao: #ef4444;
 }
@@ -24,24 +22,27 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: radial-gradient(circle at top left, #1e293b, #0f172a);
+    background: radial-gradient(circle at top, #1e293b, #0f172a 80%);
     color: var(--text-primary);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    padding: 20px; /* Garante espaço em telas menores */
 }
 
 .container {
     background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 3rem;
-    border-radius: 24px;
-    width: 90%;
-    max-width: 500px;
+    
+    /* AUMENTADO: Padding e largura */
+    padding: 4rem 3rem; 
+    border-radius: 32px;
+    width: 100%;
+    max-width: 700px; /* Container mais largo */
+    
     text-align: center;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     animation: fadeIn 0.8s ease-out;
@@ -49,8 +50,8 @@ body {
 
 h1 {
     font-weight: 800;
-    font-size: 2rem;
-    margin-bottom: 0.5rem;
+    font-size: 3rem; /* Título maior */
+    margin-bottom: 1rem;
     background: linear-gradient(to right, #38bdf8, #818cf8);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -58,12 +59,12 @@ h1 {
 }
 
 #pergunta {
-    font-size: 1.25rem;
-    line-height: 1.6;
-    margin: 2rem 0;
-    min-height: 80px;
+    font-size: 1.8rem; /* Pergunta maior e mais forte */
+    line-height: 1.5;
+    margin: 3rem 0;
+    min-height: 100px; 
     color: var(--text-primary);
-    font-weight: 400;
+    font-weight: 600; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -72,33 +73,29 @@ h1 {
 .botoes {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px; /* Mais espaço entre os botões */
 }
 
 button {
     cursor: pointer;
     border: none;
-    padding: 14px;
-    border-radius: 12px;
-    font-size: 1rem;
+    padding: 20px; /* Área de clique bem maior */
+    border-radius: 16px; 
+    font-size: 1.3rem; /* Texto dos botões maior */
     font-weight: 600;
     transition: all 0.2s ease;
     color: #fff;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 button:hover {
-    transform: translateY(-2px);
-    filter: brightness(1.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+    filter: brightness(1.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 button:active {
     transform: translateY(0);
 }
-
-/* Estilização individual baseada no valor do onclick (Truque de CSS!) */
 
 /* Sim */
 button[onclick*="responder(2)"] {
@@ -108,23 +105,25 @@ button[onclick*="responder(2)"] {
 
 /* Provavelmente Sim */
 button[onclick*="responder(1)"] {
-    background: rgba(34, 197, 94, 0.2);
+    background: rgba(34, 197, 94, 0.15);
     color: var(--color-prov-sim);
-    border-color: var(--color-prov-sim);
+    border: 2px solid rgba(134, 239, 172, 0.4);
     order: 2;
 }
 
 /* Não Sei */
 button[onclick*="responder(0)"] {
-    background: var(--color-nao-sei);
+    background: rgba(100, 116, 139, 0.3);
+    color: var(--color-nao-sei);
+    border: 2px solid rgba(148, 163, 184, 0.4);
     order: 3;
 }
 
 /* Provavelmente Não */
 button[onclick*="responder(-1)"] {
-    background: rgba(239, 68, 68, 0.2);
+    background: rgba(239, 68, 68, 0.15);
     color: var(--color-prov-nao);
-    border-color: var(--color-prov-nao);
+    border: 2px solid rgba(253, 164, 175, 0.4);
     order: 4;
 }
 
@@ -134,17 +133,23 @@ button[onclick*="responder(-2)"] {
     order: 5;
 }
 
-/* Animação suave para quando a pergunta mudar */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsividade para telas pequenas */
-@media (max-width: 480px) {
+/* Responsivo para não quebrar no celular */
+@media (max-width: 600px) {
     .container {
-        padding: 1.5rem;
+        padding: 2.5rem 1.5rem;
     }
-    h1 { font-size: 1.5rem; }
-    #pergunta { font-size: 1.1rem; }
+    h1 { font-size: 2.25rem; }
+    #pergunta { 
+        font-size: 1.4rem; 
+        margin: 2rem 0;
+    }
+    button {
+        padding: 16px;
+        font-size: 1.15rem;
+    }
 }
